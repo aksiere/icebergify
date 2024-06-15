@@ -121,7 +121,7 @@
     }
 </script>
 
-<div style='display: flex; width: 100%; height: 100%; align-items: center; justify-content: center;'>
+<div style='display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; padding: 1rem;'>
 	{#if is_logged}
 		<div style='display:none;'>
 			<!-- svelte-ignore a11y_missing_attribute -->
