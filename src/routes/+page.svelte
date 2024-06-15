@@ -19,15 +19,20 @@
     let items = $state([])
     const get_artists = async () => {
         await new Promise(r => setTimeout(r, 500))
-        let req = await fetch(`${$page.url.origin}/api/top?type=${current_type}&time_range=${current_time_range}&limit=${current_limit}`)
-        console.log(1, req)
-        let res = await req.json()
-        console.log(2, res)
+        let result = await (await fetch(`${$page.url.origin}/api/top?type=${current_type}&time_range=${current_time_range}&limit=${current_limit}`)).json()
 
-        if (res.error) {
-            error = res.error
+        if (result.error || result.message) {
+            if (result.error) {
+                error = result.error
+            } else {
+                if (result.message === 'Internal Error') {
+                    error = { message: 'Unfortunately, the app is currently in development mode.' }
+                } else {
+                    error = { message: result.message }
+                }
+            }
         } else {
-            items = res.items
+            items = result.items
         }
     }
 
