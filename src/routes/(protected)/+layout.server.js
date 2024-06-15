@@ -5,9 +5,13 @@ export async function load({ cookies }) {
 	const access_token = cookies.get('access_token')
 
 	if (access_token) {
-		const { id } = await (await fetch(`https://api.spotify.com/v1/me`, {
+		const result = await fetch(`https://api.spotify.com/v1/me`, {
 			headers: { 'Authorization': `Bearer ${access_token}` }
-		})).json()
+		})
+
+		console.log(3, result, await result.json())
+
+		const { id } = await result.json()
 
 		cookies.set('user_id', id, { path: '/' })
 

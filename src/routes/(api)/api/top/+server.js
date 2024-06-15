@@ -14,7 +14,7 @@ export async function GET({ url, cookies }) {
             }
         })
 
-        console.log(result)
+        console.log(1, result, await result.json())
         
         return Response.json(await result.json())
     } else {

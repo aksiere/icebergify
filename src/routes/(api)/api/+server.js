@@ -7,14 +7,18 @@ export async function GET({ url, request, cookies }) {
 	const code = params.get('code')
 
 	if (code) {
-		const { access_token, token_type, expires_in, refresh_token, scope } = await (await fetch(`https://accounts.spotify.com/api/token`, {
+		const result = await fetch(`https://accounts.spotify.com/api/token`, {
 			method: 'POST',
 			headers: {
 				'Authorization': `Basic ${btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)}`,
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			body: `grant_type=authorization_code&code=${code}&redirect_uri=${url.origin}/api`
-		})).json()
+		})
+
+		console.log(2, result, await result.json())
+
+		const { access_token, token_type, expires_in, refresh_token, scope } = await result.json()
 
 		const date = new Date()
 		date.setHours(date.getHours() + 1)
