@@ -4,7 +4,7 @@
 }
 
 body {
-    padding: 1rem;
+    padding-inline: 1rem;
     color-scheme: dark;
     height: 100svh;
     margin: 0;
