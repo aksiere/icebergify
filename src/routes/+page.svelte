@@ -121,7 +121,7 @@
     }
 </script>
 
-<div style='display: flex; width: 100%; height: 100%; align-items: center; justify-content: center;'>
+<div style='display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center;'>
 	{#if is_logged}
 		<div style='display:none;'>
 			<!-- svelte-ignore a11y_missing_attribute -->
@@ -162,9 +162,14 @@
 			</div>
 		{/if}
 	{:else}
-		<form method='post' action='?/signIn'>
-			<button type='submit' class='spotify_color'>CONTINUE WITH SPOTIFY</button>
-		</form>
+        <form style='margin-top: auto;' method='post' action='?/signIn'>
+            <br><br>
+            <button type='submit' class='spotify_color'>CONTINUE WITH SPOTIFY</button>
+        </form>
+
+        <div style='margin-top: auto;'>
+            <span style='color: #555;'>developed by</span> <a target='_blank' href='https://t.me/shrptn'>@shrptn</a><br><br>
+        </div>
 	{/if}
 </div>
 
