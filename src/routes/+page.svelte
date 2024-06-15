@@ -19,12 +19,15 @@
     let items = $state([])
     const get_artists = async () => {
         await new Promise(r => setTimeout(r, 500))
-        let result = (await (await fetch(`${$page.url.origin}/api/top?type=${current_type}&time_range=${current_time_range}&limit=${current_limit}`)).json())
+        let req = await fetch(`${$page.url.origin}/api/top?type=${current_type}&time_range=${current_time_range}&limit=${current_limit}`)
+        console.log(1, req)
+        let res = await req.json()
+        console.log(2, res)
 
-        if (result.error) {
-            error = result.error
+        if (res.error) {
+            error = res.error
         } else {
-            items = result.items
+            items = res.items
         }
     }
 

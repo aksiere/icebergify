@@ -7,16 +7,14 @@ export async function GET({ url, cookies }) {
         const time_range = url.searchParams.get('time_range') || 'short_term'
         const type = url.searchParams.get('type') || 'artists'
 
-        const result = await fetch(`https://api.spotify.com/v1/me/top/${type}?time_range=${time_range}&limit=${limit}`, {
+        const result = await (await fetch(`https://api.spotify.com/v1/me/top/${type}?time_range=${time_range}&limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }
-        })
-
-        console.log(1, result, await result.json())
+        })).json()
         
-        return Response.json(await result.json())
+        return Response.json(result)
     } else {
         return Response.json({ error: { status: 401, message: 'Invalid access token' } })
     }
