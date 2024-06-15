@@ -10,9 +10,9 @@
     let current_type = $state($page.url.searchParams.get('type') || 'artists')
 
     const TIME_RANGES = {
-        short_term: '~4&nbsp;weeks',
-        medium_term: '~6&nbsp;months',
-        long_term: '~1&nbsp;year',
+        short_term: '~4\u00A0weeks',
+        medium_term: '~6\u00A0months',
+        long_term: '~1\u00A0year',
     }
 
     let error = $state(undefined)
