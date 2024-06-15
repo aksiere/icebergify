@@ -149,7 +149,7 @@
 					<div class='select-wrapper'>
 						<select name='time_range' onchange={(e) => { current_time_range = e.target.value; onchange() }}>
 							{#each Object.keys(TIME_RANGES) as time_range}
-								<option value={time_range} selected={time_range === 'short_term'}>{@html TIME_RANGES[time_range]}</option>
+								<option value={time_range} selected={time_range === 'short_term'}>{TIME_RANGES[time_range]}</option>
 							{/each}
 						</select>
 					</div>
