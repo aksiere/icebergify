@@ -26,14 +26,14 @@
                 error = result.error
             } else {
                 if (result.message === 'Internal Error') {
-                    error = { message: 'Unfortunately, the app is currently in development mode.' }
+                    error = { message: `Waiting to hear back from Spotify about my app :(<br><br>So right now the app is in whitelist mode. If you want access, <a target='_blank' href='https://t.me/shrptn'>contact me</a>.` }
                 } else {
                     error = { message: result.message }
                 }
             }
         } else {
             items = result.items
-        }
+		}
     }
 
     let canvas, image, link = $state('')
@@ -143,7 +143,9 @@
 		{/await}
 
 		{#if error}
-			{error.message.toUpperCase()}
+			<div style='text-align: center;'>
+				{@html error.message.toUpperCase()}
+			</div>
 		{:else}
 			<div style='display: none; flex-direction: column; width: 100%; max-width: {CANVAS_WIDTH}px;'>
 				<form style='display: flex; gap: 1rem;'>
