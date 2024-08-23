@@ -1,14 +1,19 @@
+:root {
+	--background: #060606;
+	--primary: #1db954;
+}
+
 * {
 	font-family: monospace;
 	font-size: 16px;
 }
 
 body {
-    padding-inline: 1rem;
+    /* padding-inline: 1rem; */
     color-scheme: dark;
-    height: 100svh;
+    height: 100vh;
     margin: 0;
-    background: black;
+    background: var(--background);
     color: white;
 }
 
@@ -82,7 +87,7 @@ select {
     padding-bottom: 2px;
     outline: none;
     border: none;
-    background: black;
+    background: var(--background);
 }
 
 .select-wrapper {

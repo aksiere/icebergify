@@ -2,6 +2,8 @@
 	let { data } = $props()
 	let { is_logged } = data
 
+	import Drawer from '$lib/components/Drawer.svelte'
+
     import { page } from '$app/stores'
     import Loading from '$lib/components/Loading.svelte'
 
@@ -17,9 +19,11 @@
 
     let error = $state(undefined)
     let items = $state([])
+
     const get_artists = async () => {
         await new Promise(r => setTimeout(r, 500))
         let result = await (await fetch(`${$page.url.origin}/api/top?type=${current_type}&time_range=${current_time_range}&limit=${current_limit}`)).json()
+		console.log(result)
 
         if (result.error || result.message) {
             if (result.error) {
@@ -39,7 +43,7 @@
     let canvas, image, link = $state('')
 
     const CANVAS_WIDTH = 500
-    const CANVAS_HEIGHT = 708
+    const CANVAS_HEIGHT = 708 + 21 * 3
     
     const GAP = 10
     const FONT_SIZE = 16
@@ -120,16 +124,50 @@
             }
         }
 
-        link = canvas.toDataURL('image/png')
+		const c0 = 708
+		const c1 = 21
+		const c2 = 18
+
+		ctx.fillStyle = '#1db954'
+		ctx.fillRect(0, c0 + c1 * 0, CANVAS_WIDTH, c1)
+		ctx.fillRect(0, c0 + c1 * 1, CANVAS_WIDTH, c1)
+		ctx.fillRect(0, c0 + c1 * 2, CANVAS_WIDTH, c1)
+		
+		ctx.textAlign = 'center'
+		ctx.fillStyle = 'black'
+		ctx.fillText(`That's my iceberg. It interprets the popularity of the`, CANVAS_WIDTH / 2, c0 + c2 * 1)
+		ctx.fillText(`${current_type} I've listened to the most often in the last`, CANVAS_WIDTH / 2, c0 + c2 * 2)
+		ctx.fillText(`${TIME_RANGES[current_time_range]}. Check yours at icebergify.vercel.app!`, CANVAS_WIDTH / 2, c0 + c2 * 3)
+
+		link = canvas.toDataURL('image/png')
     }
 
     const onchange = async () => {
         items = []
         items = (await (await fetch(`${$page.url.origin}/api/top?type=${current_type}&time_range=${current_time_range}&limit=${current_limit}`)).json()).items
+		console.log(items)
+		
     }
+
+	let show_drawer = $state(false)
 </script>
 
-<div style='display: flex; flex-direction: column; width: 100%; height: 100%; align-items: center; justify-content: center;'>
+<Drawer open={show_drawer} onclose={() => show_drawer = false} opacity={95} style='background: var(--background); width: 38rem; border-top-left-radius: 10px; border-bottom-left-radius: 10px; overflow-y: scroll; overscroll-behavior-y: contain;' scaleBackground direction='right'>
+	{#if items}
+		<div style='padding-inline: 2rem; padding-block: 1.5rem;'>
+			<p style='margin-top: 0;'>Referenced content:</p>
+			{#each items as item}
+				<div style='display: flex; align-items: center; gap: .25rem;'>
+					<img src={item.album?.images.at(-1).url || item.images.at(-1).url} alt={item.name} height={16} width={16} style='object-fit: cover; margin-top: 3px'>
+					<a target='_blank' href={item.uri} alt={item.name}>{item.name}</a>
+				</div>
+			{/each}
+			<!-- {JSON.stringify(items.map(i => ({ id: i.id, name: i.name, external_urls: i.external_urls })), null, 2)} -->
+		</div>
+	{/if}
+</Drawer>
+
+<div data-wrapper style='display: flex; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center;'>
 	{#if is_logged}
 		<div style='display:none;'>
 			<!-- svelte-ignore a11y_missing_attribute -->
@@ -167,20 +205,33 @@
 					<a style='margin-left: auto;' target='_blank' href={link} download='icebergify__{current_type}__{current_time_range}.png'>DOWNLOAD</a>
 				</form><br>
 
-				<span style='text-align: justify;'>This is your iceberg. It interprets the popularity of <mark>{current_type}</mark> that you have listened to most often in the last <mark>{TIME_RANGES[current_time_range]}</mark>.</span><br>
+				<!-- <span style='text-align: justify;'>This is your iceberg. It interprets the popularity of <mark>{current_type}</mark> that you have listened to most often in the last <mark>{TIME_RANGES[current_time_range]}</mark>.</span><br> -->
 				<canvas width={CANVAS_WIDTH} height={CANVAS_HEIGHT} bind:this={canvas}></canvas>
 			</div>
 		{/if}
 	{:else}
-        <form style='margin-top: auto;' method='post' action='?/signIn'>
+        <form method='post' action='?/signIn'>
             <br><br>
             <button type='submit' class='spotify_color'>CONTINUE WITH SPOTIFY</button>
         </form>
-
-        <div style='margin-top: auto;'>
-            <span style='color: #555;'>developed by</span> <a target='_blank' href='https://t.me/shrptn'>@shrptn</a><br><br>
-        </div>
 	{/if}
+</div>
+
+<div style='display: flex; gap: 1rem; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center; -webkit-user-select: none;'>
+	<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px;'>
+		<span style='color: #555;'>developed by</span>
+		<a target='_blank' href='https://t.me/shrptn'>@shrptn</a>
+	</div>
+
+	<div style='display: flex; gap: .5rem; align-items: center;'>
+		<span style='color: #555; margin-bottom: 6px;'>data provided by</span>
+		<enhanced:img src='./spotify.png?w=100' alt='Spotify' />
+	</div>
+
+	<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px; cursor: pointer;'>
+		<span style='color: #555;' ></span>
+		<a onclick={() => show_drawer = true}>click to show metadata</a>
+	</div>
 </div>
 
 <style>
