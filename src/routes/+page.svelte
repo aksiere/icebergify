@@ -152,7 +152,7 @@
 	let show_drawer = $state(false)
 </script>
 
-<Drawer open={show_drawer} onclose={() => show_drawer = false} opacity={95} style='background: var(--background); width: 38rem; border-top-left-radius: 10px; border-bottom-left-radius: 10px; overflow-y: scroll; overscroll-behavior-y: contain;' scaleBackground direction='right'>
+<Drawer open={show_drawer} onclose={() => show_drawer = false} opacity={95} style='background: var(--background); height: 38vh; overflow-y: scroll; overscroll-behavior-y: contain;' scaleBackground direction='bottom'>
 	{#if items}
 		<div style='padding-inline: 2rem; padding-block: 1.5rem;'>
 			<p style='margin-top: 0;'>Referenced content:</p>
@@ -203,7 +203,7 @@
 					</div>
 
 					<a style='margin-left: auto;' target='_blank' href={link} download='icebergify__{current_type}__{current_time_range}.png'>DOWNLOAD</a>
-				</form><br>
+				</form>
 
 				<!-- <span style='text-align: justify;'>This is your iceberg. It interprets the popularity of <mark>{current_type}</mark> that you have listened to most often in the last <mark>{TIME_RANGES[current_time_range]}</mark>.</span><br> -->
 				<canvas width={CANVAS_WIDTH} height={CANVAS_HEIGHT} bind:this={canvas}></canvas>
@@ -218,7 +218,7 @@
 </div>
 
 {#if is_logged}
-	<div style='display: flex; gap: 1rem; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center; -webkit-user-select: none;'>
+	<div style='display: flex; gap: .5rem; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center; -webkit-user-select: none;'>
 		<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px;'>
 			<span style='color: #555;'>developed by</span>
 			<a target='_blank' href='https://t.me/shrptn'>@shrptn</a>
