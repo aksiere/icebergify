@@ -217,22 +217,24 @@
 	{/if}
 </div>
 
-<div style='display: flex; gap: 1rem; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center; -webkit-user-select: none;'>
-	<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px;'>
-		<span style='color: #555;'>developed by</span>
-		<a target='_blank' href='https://t.me/shrptn'>@shrptn</a>
-	</div>
+{#if is_logged}
+	<div style='display: flex; gap: 1rem; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center; -webkit-user-select: none;'>
+		<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px;'>
+			<span style='color: #555;'>developed by</span>
+			<a target='_blank' href='https://t.me/shrptn'>@shrptn</a>
+		</div>
 
-	<div style='display: flex; gap: .5rem; align-items: center;'>
-		<span style='color: #555; margin-bottom: 6px;'>data provided by</span>
-		<enhanced:img src='./spotify.png?w=100' alt='Spotify' />
-	</div>
+		<div style='display: flex; gap: .5rem; align-items: center;'>
+			<span style='color: #555; margin-bottom: 6px;'>data provided by</span>
+			<enhanced:img src='./spotify.png?w=100' alt='Spotify' />
+		</div>
 
-	<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px; cursor: pointer;'>
-		<span style='color: #555;' ></span>
-		<a onclick={() => show_drawer = true}>click to show metadata</a>
+		<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px; cursor: pointer;'>
+			<span style='color: #555;' ></span>
+			<a onclick={() => show_drawer = true}>click to show metadata</a>
+		</div>
 	</div>
-</div>
+{/if}
 
 <style>
     canvas {
