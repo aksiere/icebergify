@@ -186,7 +186,7 @@
 			</div>
 		{:else}
 			<div style='display: none; flex-direction: column; width: 100%; max-width: {CANVAS_WIDTH}px;'>
-				<form style='display: flex; gap: 1rem;'>
+				<form style='display: flex; gap: 1rem; margin-bottom: 1rem;'>
 					<div class='select-wrapper'>
 						<select name='type' onchange={(e) => { current_type = e.target.value; onchange() }}>
 							<option value='artists' selected>artists</option>
