@@ -159,7 +159,7 @@
 			{#each items as item}
 				<div style='display: flex; align-items: center; gap: .25rem;'>
 					<img src={item.album?.images.at(-1).url || item.images.at(-1).url} alt={item.name} height={16} width={16} style='object-fit: cover; margin-top: 3px'>
-					<a target='_blank' href={item.uri} alt={item.name}>{item.name}</a>
+					<a href={item.uri} alt={item.name}>{item.name}</a>
 				</div>
 			{/each}
 			<!-- {JSON.stringify(items.map(i => ({ id: i.id, name: i.name, external_urls: i.external_urls })), null, 2)} -->
