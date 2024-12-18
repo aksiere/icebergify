@@ -214,6 +214,8 @@
             <br><br>
             <button type='submit' class='spotify_color'>CONTINUE WITH SPOTIFY</button>
         </form>
+
+		<p>*by signing in, you accept the <a href='/eua'>user agreement</a> and <a href='/pp'>privacy policy</a></p>
 	{/if}
 </div>
 
