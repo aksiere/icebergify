@@ -152,14 +152,16 @@
 	let show_drawer = $state(false)
 </script>
 
-<Drawer open={show_drawer} onclose={() => show_drawer = false} opacity={95} style='background: var(--background); height: 38vh; overflow-y: scroll; overscroll-behavior-y: contain;' scaleBackground direction='bottom'>
+<Drawer open={show_drawer} onclose={() => show_drawer = false} opacity={95} style='background: var(--background); height: 50vh; overflow-y: scroll; overscroll-behavior-y: contain;' scaleBackground direction='bottom'>
 	{#if items}
 		<div style='padding-inline: 2rem; padding-block: 1.5rem;'>
 			<p style='margin-top: 0;'>Referenced content:</p>
 			{#each items as item}
 				<div style='display: flex; align-items: center; gap: .25rem;'>
+					<img src='./spotify_icon.svg' alt={item.name} height={16} width={16} style='object-fit: cover; margin-top: 3px'>
 					<img src={item.album?.images.at(-1).url || item.images.at(-1).url} alt={item.name} height={16} width={16} style='object-fit: cover; margin-top: 3px'>
 					<a href={item.uri} alt={item.name}>{item.name}</a>
+					<span style='color: #222;'>{item.uri}</span>
 				</div>
 			{/each}
 			<!-- {JSON.stringify(items.map(i => ({ id: i.id, name: i.name, external_urls: i.external_urls })), null, 2)} -->
@@ -220,7 +222,7 @@
 </div>
 
 {#if is_logged}
-	<div style='display: flex; gap: .5rem; flex-direction: column; width: 100%; height: 100dvh; align-items: center; justify-content: center; -webkit-user-select: none;'>
+	<div style='display: flex; gap: .5rem; flex-direction: column; width: 100%; height: 300px; align-items: center; justify-content: center; -webkit-user-select: none;'>
 		<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px;'>
 			<span style='color: #555;'>developed by</span>
 			<a target='_blank' href='https://t.me/shrptn'>@shrptn</a>
@@ -233,7 +235,7 @@
 
 		<div style='display: flex; gap: .5rem; align-items: center; margin-bottom: 6px; cursor: pointer;'>
 			<span style='color: #555;' ></span>
-			<a onclick={() => show_drawer = true}>click to show metadata</a>
+			<a onclick={() => show_drawer = true}>show metadata</a>
 		</div>
 	</div>
 {/if}
@@ -242,4 +244,13 @@
     canvas {
         object-fit: contain;
     }
+
+	.show_metadata_1:hover .show_metadata_2 {
+		display: block;
+	}
+
+	.show_metadata_2 {
+		display: none;
+		margin-left: 1rem;
+	}
 </style>
